@@ -4,6 +4,7 @@ import './App.css';
 import Sidebar from "./Sidebar"
 import Main from "./Main"
 import {useState} from "react";
+import uuid from "react-uuid";
 
 function App() {
 
@@ -11,16 +12,27 @@ function App() {
 
   const onAddNote= () => {
     const newNote = {
-      id:  //UUID를 설치해서 고유 ID값을 주려는 것인가..!
-      title:
-      body:
-      lastModified:
+      id: uuid(),  //UUID를 설치해서 고유 ID값을 주려는 것인가..!
+      title: "Untitled Note" ,
+      body: "",
+      lastModified: Date.now(),
     }
+
+    setNotes([newNote, ...notes]);
   }
+
+  const onDeleteNote = (idToDelete) => {
+    setNotes(notes.filter((note) => note.id !== idToDelete )) //idToDelete가 아닌 것만 filtering해서 표시하기
+  }
+
 
   return (
     <div className="App">
-      <Sidebar notes = {notes} onAddNote={onAddNote} />
+      <Sidebar 
+        notes = {notes} 
+        onAddNote={onAddNote} 
+        onDeleteNote={onDeleteNote}
+      />
       <Main />
     </div>
   );
