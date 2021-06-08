@@ -23,6 +23,22 @@ function App() {
     setNotes([newNote, ...notes]);
   }
 
+const onUpdateNote = (updatedNote) => {
+  const updatedNotesArray = notes.map((note) => {
+    if(note.id === activeNote) {
+      return updatedNote;
+    }
+
+
+    return note;
+
+  });
+  setNotes(updatedNotesArray);
+};
+
+
+
+
   const onDeleteNote = (idToDelete) => {
     setNotes(notes.filter((note) => note.id !== idToDelete )) //idToDelete가 아닌 것만 filtering해서 표시하기
   }
@@ -43,7 +59,7 @@ function App() {
         activeNote = {activeNote}
         setActiveNote={setActiveNote}
       />
-      <Main activeNote={getActiveNote()} />
+      <Main activeNote={getActiveNote()} onUpdateNote={onUpdateNote} />
     </div>
   );
 }
